@@ -1,3 +1,10 @@
+function isKeyword(message) {
+    if (lowered === 'giphy') {
+        return 'giphy';
+    }
+    return null;
+}
+
 function isGreeting(message) {
     lowered = message.toLowerCase();
     return (
