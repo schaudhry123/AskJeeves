@@ -32,15 +32,15 @@ app.post('/webhook', function (req, res) {
             message = event.message.text;
 
             if (parser.isGreeting(message)) {
-                sendMessage(event.sender.id, {text: 'Hey! How are you?'});
+                brain.sendMessage(event.sender.id, {text: 'Hey! How are you?'});
             }
             else if (parser.isKeyword(message)) {
-
+                console.log("This is a keyword!");
             }
             else {
                 // sendMessage(event.sender.id, {text: message});
                 if (!brain.kittenMessage(event.sender.id, event.message.text)) {
-                    sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
+                    brain.sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
                 }
             }
         }

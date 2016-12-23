@@ -29,38 +29,35 @@ function kittenMessage(recipientId, text) {
     text = text || "";
     var values = text.split(' ');
 
-    if (values.length === 3 && values[0] === 'kitten') {
-        if (Number(values[1]) > 0 && Number(values[2]) > 0) {
+    if (values[0] === 'corgi') {
 
-            var imageUrl = "https://placekitten.com/" + Number(values[1]) + "/" + Number(values[2]);
+        var imageUrl = "http://www.cutestpaw.com/wp-content/uploads/2014/08/corgi.jpg";
 
-            message = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "generic",
-                        "elements": [{
-                            "title": "Kitten",
-                            "subtitle": "Cute kitten picture",
-                            "image_url": imageUrl ,
-                            "buttons": [{
-                                "type": "web_url",
-                                "url": imageUrl,
-                                "title": "Show kitten"
-                                }, {
-                                "type": "postback",
-                                "title": "I like this",
-                                "payload": "User " + recipientId + " likes kitten " + imageUrl,
-                            }]
+        message = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "generic",
+                    "elements": [{
+                        "title": "Kitten",
+                        "subtitle": "Cute kitten picture",
+                        "image_url": imageUrl ,
+                        "buttons": [{
+                            "type": "web_url",
+                            "url": imageUrl,
+                            "title": "Show kitten"
+                            }, {
+                            "type": "postback",
+                            "title": "I like this",
+                            "payload": "User " + recipientId + " likes kitten " + imageUrl,
                         }]
-                    }
+                    }]
                 }
-            };
+            }
+        };
 
-            sendMessage(recipientId, message);
-
-            return true;
-        }
+        sendMessage(recipientId, message);
+        return true;
     }
 
     return false;
