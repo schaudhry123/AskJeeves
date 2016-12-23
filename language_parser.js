@@ -13,4 +13,7 @@ function isGreeting(message) {
             );
 }
 
-module.exports.isGreeting = isGreeting;
+module.exports = {
+    isKeyword: isKeyword,
+    isGreeting: isGreeting
+};
