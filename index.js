@@ -2,8 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
-
-var $ = require('jquery');
+var parser = require('./language_parser.js');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -29,7 +28,7 @@ app.post('/webhook', function (req, res) {
     for (i = 0; i < events.length; i++) {
         var event = events[i];
         if (event.message && event.message.text) {
-            if (isGreeting(event.message.text)) {
+            if (parser.isGreeting(event.message.text)) {
                 sendMessage(event.sender.id, {text: 'Hey! How are you?'});
             }
             else {
@@ -39,14 +38,6 @@ app.post('/webhook', function (req, res) {
     }
     res.sendStatus(200);
 });
-
-function isGreeting(message) {
-    lowered = message.toLowerCase();
-    return (
-            (lowered.indexOf('hey') === 0) || (lowered.indexOf('hi') === 0) ||
-            (lowered.indexOf('howdy') === 0) || (lowered.indexOf('hello') === 0)
-            );
-}
 
 // Generic function to send messages
 function sendMessage(recipientId, message) {
