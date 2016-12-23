@@ -39,7 +39,7 @@ app.post('/webhook', function (req, res) {
             }
             else {
                 // sendMessage(event.sender.id, {text: message});
-                if (!brain.kittenMessage(event.sender.id, event.message.text)) {
+                if (!brain.corgiMessage(event.sender.id, event.message.text)) {
                     brain.sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
                 }
             }

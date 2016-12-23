@@ -24,7 +24,7 @@ function sendMessage(recipientId, message) {
 };
 
 // send rich message with kitten
-function kittenMessage(recipientId, text) {
+function corgiMessage(recipientId, text) {
 
     text = text || "";
     var values = text.split(' ');
@@ -68,5 +68,5 @@ function kittenMessage(recipientId, text) {
 
 module.exports = {
     sendMessage: sendMessage,
-    kittenMessage: kittenMessage
+    corgiMessage: corgiMessage
 };
