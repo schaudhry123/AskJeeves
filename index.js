@@ -31,13 +31,6 @@ app.post('/webhook', function (req, res) {
         if (event.message && event.message.text) {
             if (isGreeting(event.message.text)) {
                 sendMessage(event.sender.id, {text: 'Hey! How are you?'});
-                $.ajax({
-                    type: "POST",
-                    url: "python.py",
-                    data: { param: 'omg' }
-                }).done(function(o) {
-                    console.log(o);
-                });
             }
             else {
                 sendMessage(event.sender.id, {text: event.message.text});
