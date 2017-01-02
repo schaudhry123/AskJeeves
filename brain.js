@@ -29,7 +29,7 @@ function corgiMessage(recipientId, text) {
     text = text || "";
     var values = text.split(' ');
 
-    if (values[0] === 'corgi') {
+    if (values[0].toLowerCase() === 'corgi') {
 
         var imageUrl = "http://www.cutestpaw.com/wp-content/uploads/2014/08/corgi.jpg";
 
@@ -39,17 +39,17 @@ function corgiMessage(recipientId, text) {
                 "payload": {
                     "template_type": "generic",
                     "elements": [{
-                        "title": "Kitten",
-                        "subtitle": "Cute kitten picture",
+                        "title": "Corgi",
+                        "subtitle": "Cute corgi picture",
                         "image_url": imageUrl ,
                         "buttons": [{
                             "type": "web_url",
                             "url": imageUrl,
-                            "title": "Show kitten"
+                            "title": "Show corgi"
                             }, {
                             "type": "postback",
                             "title": "I like this",
-                            "payload": "User " + recipientId + " likes kitten " + imageUrl,
+                            "payload": "User " + recipientId + " likes corgi " + imageUrl,
                         }]
                     }]
                 }
