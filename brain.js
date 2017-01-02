@@ -11,15 +11,14 @@ function processCommand(command) {
 
     if (command === 'help')
         response = getHelp();
-
     else if (command === 'giphy')
         response = getGiphy();
-
     else if (command === 'corgi')
         response = getCorgi();
-
     else
         console.log("Command `" + command + "` not found.");
+
+    return response;
 }
 
 function getHelp() {
