@@ -6,7 +6,7 @@ var request = require('request');
  Commands
 ==========
 */
-function processCommand(command) {
+function processCommand(command, sender) {
     var response = [];
 
     if (command === 'help')
@@ -14,7 +14,7 @@ function processCommand(command) {
     else if (command === 'giphy')
         response = getGiphy();
     else if (command === 'corgi')
-        response = getCorgi();
+        response = getCorgi(sender);
     else
         console.log("Command `" + command + "` not found.");
 
@@ -38,7 +38,7 @@ function getGiphy() {
     ];
 }
 
-function getCorgi() {
+function getCorgi(recipientId) {
     var imageUrl = "http://www.cutestpaw.com/wp-content/uploads/2014/08/corgi.jpg";
     message = {
         "attachment": {
