@@ -1,3 +1,7 @@
+function isCommand(message) {
+    return (message.length > 1 && message.charAt(0) === '!');
+}
+
 function isKeyword(message) {
     if (lowered === 'giphy') {
         return 'giphy';
@@ -28,6 +32,7 @@ function isQuestion(message) {
 }
 
 module.exports = {
+    isCommand: isCommand,
     isKeyword: isKeyword,
     isGreeting: isGreeting,
     isQuestion: isQuestion,

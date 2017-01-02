@@ -1,8 +1,78 @@
 var request = require('request');
 
-function getGiphy() {
 
+/*
+==========
+ Commands
+==========
+*/
+function processCommand(command) {
+    var response = [];
+
+    if (command === 'help')
+        response = getHelp();
+
+    else if (command === 'giphy')
+        response = getGiphy();
+
+    else if (command === 'corgi')
+        response = getCorgi();
+
+    else
+        console.log("Command `" + command + "` not found.");
 }
+
+function getHelp() {
+    return [
+        "Hi, I am Jeeves. I am here to answer any of your questions or simply talk to you.",
+        "Try asking me some questions or saying hi and hopefully I can be helpful!",
+        "Implemented keywords: corgi, giphy"
+    ];
+    // brain.sendMessage(sender, {text: text1});
+    // brain.sendMessage(sender, {text: text2});
+    // brain.sendMessage(sender, {text: text3});
+}
+
+function getGiphy() {
+    return [
+        'Getting you a giphy!'
+    ];
+}
+
+function getCorgi() {
+    var imageUrl = "http://www.cutestpaw.com/wp-content/uploads/2014/08/corgi.jpg";
+    message = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "Corgi",
+                    "subtitle": "Cute corgi picture",
+                    "image_url": imageUrl ,
+                    "buttons": [{
+                        "type": "web_url",
+                        "url": imageUrl,
+                        "title": "Show corgi"
+                        }, {
+                        "type": "postback",
+                        "title": "I like this",
+                        "payload": "User " + recipientId + " likes corgi " + imageUrl,
+                    }]
+                }]
+            }
+        }
+    };
+
+    return [ message ];
+}
+
+
+/*
+===============================
+ Sending messages back to user
+===============================
+*/
 
 // Generic function to send messages
 function sendMessage(recipientId, message) {
@@ -64,9 +134,21 @@ function corgiMessage(recipientId, text) {
 
 };
 
-
+var greetingList = [
+    'Hello!',
+    'Hey!',
+    'Hi!',
+    'Howdy!',
+    'Hey, how are you?'
+];
+function getGreeting() {
+    var randomNumber = Math.floor(Math.random()*greetingList.length);
+    return greetingList[randomNumber];
+}
 
 module.exports = {
     sendMessage: sendMessage,
-    corgiMessage: corgiMessage
+    corgiMessage: corgiMessage,
+    processCommand: processCommand,
+    getGreeting: getGreeting
 };

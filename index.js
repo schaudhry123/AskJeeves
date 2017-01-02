@@ -23,6 +23,8 @@ app.get('/webhook', function (req, res) {
     }
 });
 
+
+
 // Handler receiving messages
 app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
@@ -32,28 +34,34 @@ app.post('/webhook', function (req, res) {
         if (event.message && event.message.text) {
             message = event.message.text;
 
-            if (parser.isGreeting(message)) {
-                brain.sendMessage(sender, {text: 'Hey! How are you?'});
+            if (parser.isCommand(message)) {
+                var command = message.slice(1);
+                var response = brain.processCommand(command);
+                for (i = 0; i < response.length; i++) {
+                    var message = response[i];
+                    if (message.hasOwnProperty('attachment'))
+                        brain.sendMessage(sender, message);
+                    else
+                        brain.sendMessage(sender, {text: message});
+                }
+            }
+            else if (parser.isGreeting(message)) {
+                brain.sendMessage(sender, {text: brain.getGreeting()});
             }
             else if (parser.isQuestion(message)) {
                 brain.sendMessage(sender, {text: 'You asked me a question!'});
             }
-            else if (parser.isKeyword(message)) {
-                console.log("This is a keyword!");
-            }
-            else if (parser.isHelpRequest(message)) {
-                var text1 = "Hi, I am the AskJeeves bot. I am here to answer any of your questions or simply talk to you."
-                var text2 = "Try asking me some questions or saying hi and hopefully I can be helpful!"
-                var text3 = "Implemented keywords: corgi, giphy"
-                brain.sendMessage(sender, {text: text1});
-                brain.sendMessage(sender, {text: text2});
-                brain.sendMessage(sender, {text: text3});
-            }
+            // else if (parser.isHelpRequest(message)) {
+            //     var text1 = "Hi, I am Jeeves. I am here to answer any of your questions or simply talk to you."
+            //     var text2 = "Try asking me some questions or saying hi and hopefully I can be helpful!"
+            //     var text3 = "Implemented keywords: corgi, giphy"
+            //     brain.sendMessage(sender, {text: text1});
+            //     brain.sendMessage(sender, {text: text2});
+            //     brain.sendMessage(sender, {text: text3});
+            // }
             else {
                 // sendMessage(sender, {text: message});
-                if (!brain.corgiMessage(sender, event.message.text)) {
-                    brain.sendMessage(sender, {text: "Echo: " + event.message.text});
-                }
+                brain.sendMessage(sender, {text: "Echo: " + event.message.text});
             }
         }
     }
