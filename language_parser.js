@@ -13,6 +13,20 @@ function isGreeting(message) {
             );
 }
 
+function isHelpRequest(message) {
+    lowered = message.toLowerCase();
+    return (lowered === '!help');
+}
+
+function isQuestion(message) {
+    lowered = message.toLowerCase();
+    return (
+            (lowered.indexOf('?') > -1) || (lowered.indexOf('what') > -1) ||
+            (lowered.indexOf('how') > -1) || (lowered.indexOf('who') > -1) ||
+            (lowered.indexOf('who') > -1)
+            );
+}
+
 module.exports = {
     isKeyword: isKeyword,
     isGreeting: isGreeting
