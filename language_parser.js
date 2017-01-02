@@ -29,5 +29,6 @@ function isQuestion(message) {
 
 module.exports = {
     isKeyword: isKeyword,
-    isGreeting: isGreeting
+    isGreeting: isGreeting,
+    isQuestion: isQuestion
 };
