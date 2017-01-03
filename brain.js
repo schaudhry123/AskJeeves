@@ -48,7 +48,7 @@ function getGiphy(params) {
         if (!error && response.statusCode == 200) {
             console.log(body);
         }
-    }
+    });
 
     return [
         'Getting you a giphy!',
