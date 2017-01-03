@@ -11,3 +11,6 @@ Below are a list of commands implemented. All commands must be prefixed with an 
 *   !help  - Display a helpful message
 *   !corgi - Show a picture of an adorable corgi
 *   !giphy - Display a random giphy, can pass in parameters to get a type of giphy
+
+Current capabilities:
+*   Greeting
