@@ -9,10 +9,7 @@ function processCommand(command, sender, callback) {
     var response = [];
 
     if (command === 'help')
-        if (callback)
-            callback(getHelp());
-        else
-            getHelp();
+        callback(getHelp());
     else if (command === 'giphy')
         getGiphy(command.split(' '), function(giphy) {
             callback(giphy);
@@ -52,13 +49,9 @@ function getGiphy(params, callback) {
 
             var message = {
                 "attachment": {
-                    "type": "template",
+                    "type": "image",
                     "payload": {
-                        "template_type": "generic",
-                        "elements": [{
-                            "title": "Giphy",
-                            "image_url": giphy
-                        }]
+                        "url": giphy
                     }
                 }
             };
