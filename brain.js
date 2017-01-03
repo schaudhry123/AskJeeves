@@ -9,7 +9,10 @@ function processCommand(command, sender, callback) {
     var response = [];
 
     if (command === 'help')
-        callback(getHelp());
+        if (callback)
+            callback(getHelp());
+        else
+            getHelp();
     else if (command === 'giphy')
         getGiphy(command.split(' '), function(giphy) {
             callback(giphy);
