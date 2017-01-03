@@ -36,14 +36,15 @@ app.post('/webhook', function (req, res) {
 
             if (parser.isCommand(message)) {
                 var command = message.slice(1);
-                var response = brain.processCommand(command);
-                for (i = 0; i < response.length; i++) {
-                    var message = response[i];
-                    if (message.hasOwnProperty('attachment'))
-                        brain.sendMessage(sender, message);
-                    else
-                        brain.sendMessage(sender, {text: message});
-                }
+                brain.processCommand(command, function(response) {
+                    for (i = 0; i < response.length; i++) {
+                        var message = response[i];
+                        if (message.hasOwnProperty('attachment'))
+                            brain.sendMessage(sender, message);
+                        else
+                            brain.sendMessage(sender, {text: message});
+                    }
+                });
             }
             else if (parser.isGreeting(message)) {
                 brain.sendMessage(sender, {text: brain.getGreeting()});

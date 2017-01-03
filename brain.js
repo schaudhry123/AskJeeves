@@ -5,19 +5,19 @@ var request = require('request');
  Commands
 ==========
 */
-function processCommand(command, sender) {
+function processCommand(command, sender, callback) {
     var response = [];
 
     if (command === 'help')
-        response = getHelp();
+        callback(getHelp());
     else if (command === 'giphy')
-        response = getGiphy(command.split(' '));
+        getGiphy(command.split(' '), function(giphy) {
+            callback(giphy);
+        });
     else if (command === 'corgi')
-        response = getCorgi(sender);
+        callback(getCorgi(sender));
     else
         console.log("Command `" + command + "` not found.");
-
-    return response;
 }
 
 function getHelp() {
@@ -26,12 +26,9 @@ function getHelp() {
         "Try asking me some questions or saying hi and hopefully I can be helpful!",
         "Implemented keywords: corgi, giphy"
     ];
-    // brain.sendMessage(sender, {text: text1});
-    // brain.sendMessage(sender, {text: text2});
-    // brain.sendMessage(sender, {text: text3});
 }
 
-function getGiphy(params) {
+function getGiphy(params, callback) {
     var giphyURL = 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC';
 
     /* OPTIONAL PARAMETERS FOR GIPHY */
@@ -46,35 +43,35 @@ function getGiphy(params) {
     var giphy = null;
     request(giphyURL, function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            var json = JSON.parse(response);
-            var data = json.data;
+            var data = JSON.parse(body).data;
             giphy = data.image_url;
-        }
-    });
 
-    var response = [
-        "Getting you a giphy!",
-        giphyURL
-    ];
-
-    if (giphy) {
-        var message = {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [{
-                        "title": "Giphy",
-                        "image_url": giphy
-                    }]
+            var message = {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "generic",
+                        "elements": [{
+                            "title": "Giphy",
+                            "image_url": giphy
+                        }]
+                    }
                 }
-            }
-        };
-        response.push(message);
-    }
+            };
+        }
 
-    return response;
+        var response = [ "Getting you a giphy!" ];
+        if (message)
+            response.push(message);
+
+        if (callback)
+            callback(response);
+    });
 }
+
+// processCommand("giphy", 0, function(response) {
+//     console.log("Response: " + JSON.stringify(response));
+// });
 
 function getCorgi(recipientId) {
     var imageUrl = "http://www.cutestpaw.com/wp-content/uploads/2014/08/corgi.jpg";
