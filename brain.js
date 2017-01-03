@@ -34,10 +34,19 @@ function getHelp() {
 function getGiphy(params) {
     var giphyURL = 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC';
 
-    if (params.length > 1) {
-        giphyURL = giphyURL + '&tag=';
-        for (var i = 1; i < params.length; i++) {
-            giphyURL = giphyURL + params[i] + '+';
+    /* OPTIONAL PARAMETERS FOR GIPHY */
+    /* IN ORDER TO IMPLEMENT, LOOK INTO processCommand FUNCTION */
+    // if (params.length > 1) {
+    //     giphyURL = giphyURL + '&tag=';
+    //     for (var i = 1; i < params.length; i++) {
+    //         giphyURL = giphyURL + params[i] + '+';
+    //     }
+    // }
+
+    var giphy = null;
+    request(giphyURL, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body);
         }
     }
 
