@@ -36,7 +36,7 @@ function getGiphy(params) {
 
     if (params.length > 1) {
         giphyURL = giphyURL + '&tag=';
-        for (int i = 1; i < params.length; i++) {
+        for (var i = 1; i < params.length; i++) {
             giphyURL = giphyURL + params[i] + '+';
         }
     }

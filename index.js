@@ -36,7 +36,7 @@ app.post('/webhook', function (req, res) {
 
             if (parser.isCommand(message)) {
                 var command = message.slice(1);
-                var response = brain.processCommand(command, sender);
+                var response = brain.processCommand(command);
                 for (i = 0; i < response.length; i++) {
                     var message = response[i];
                     if (message.hasOwnProperty('attachment'))
