@@ -46,9 +46,9 @@ function getGiphy(params) {
     var giphy = null;
     request(giphyURL, function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            var data = body['data'];
-            console.log(data);
-            giphy = data['image_url'];
+            var json = JSON.parse(response);
+            var data = json.data;
+            giphy = data.image_url;
         }
     });
 
