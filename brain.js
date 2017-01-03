@@ -46,14 +46,32 @@ function getGiphy(params) {
     var giphy = null;
     request(giphyURL, function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            console.log(body);
+            giphy = body.data.image_url;
         }
     });
 
-    return [
-        'Getting you a giphy!',
+    var response = [
+        "Getting you a giphy!",
         giphyURL
     ];
+
+    if (giphy) {
+        var message = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "generic",
+                    "elements": [{
+                        "title": "Giphy",
+                        "image_url": giphy
+                    }]
+                }
+            }
+        };
+        response.push(message);
+    }
+
+    return response;
 }
 
 function getCorgi(recipientId) {
