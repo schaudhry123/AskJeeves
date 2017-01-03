@@ -1,6 +1,5 @@
 var request = require('request');
 
-
 /*
 ==========
  Commands
@@ -12,7 +11,7 @@ function processCommand(command, sender) {
     if (command === 'help')
         response = getHelp();
     else if (command === 'giphy')
-        response = getGiphy();
+        response = getGiphy(command.split(' '));
     else if (command === 'corgi')
         response = getCorgi(sender);
     else
@@ -32,9 +31,19 @@ function getHelp() {
     // brain.sendMessage(sender, {text: text3});
 }
 
-function getGiphy() {
+function getGiphy(params) {
+    var giphyURL = 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC';
+
+    if (params.length > 1) {
+        giphyURL = giphyURL + '&tag=';
+        for (int i = 1; i < params.length; i++) {
+            giphyURL = giphyURL + params[i] + '+';
+        }
+    }
+
     return [
-        'Getting you a giphy!'
+        'Getting you a giphy!',
+        giphyURL
     ];
 }
 
