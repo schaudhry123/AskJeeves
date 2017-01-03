@@ -43,6 +43,7 @@ function getGiphy(params, callback) {
     var giphy = null;
     request(giphyURL, function(error, response, body) {
         if (!error && response.statusCode == 200) {
+
             var data = JSON.parse(body).data;
             giphy = data.image_url;
 
@@ -69,9 +70,9 @@ function getGiphy(params, callback) {
     });
 }
 
-// processCommand("giphy", 0, function(response) {
-//     console.log("Response: " + JSON.stringify(response));
-// });
+processCommand("giphy", 0, function(response) {
+    console.log("Response: " + JSON.stringify(response));
+});
 
 function getCorgi(recipientId) {
     var imageUrl = "http://www.cutestpaw.com/wp-content/uploads/2014/08/corgi.jpg";
