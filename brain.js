@@ -24,8 +24,8 @@ function processCommand(command, sender, callback) {
 function getHelp() {
     return [
         "Hi, I am Jeeves. I am here to answer any of your questions or simply talk to you.\n \
-        Try asking me some questions or saying hi and hopefully I can be helpful!\n \
-        Implemented commands: !corgi, !giphy"
+Try asking me some questions or saying hi and hopefully I can be helpful!\n \
+Implemented commands: !corgi, !giphy"
     ];
 }
 
