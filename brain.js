@@ -8,13 +8,14 @@ var request = require('request');
 function processCommand(command, sender, callback) {
     var response = [];
 
-    if (command === 'help')
+    if (command.indexOf('help') > -1)
         callback(getHelp());
-    else if (command === 'giphy')
+    else if (command.indexOf('giphy') > -1) {
         getGiphy(command.split(' '), function(giphy) {
             callback(giphy);
         });
-    else if (command === 'corgi')
+    }
+    else if (command.indexOf('corgi') > -1)
         callback(getCorgi(sender));
     else
         console.log("Command `" + command + "` not found.");
@@ -33,12 +34,12 @@ function getGiphy(params, callback) {
 
     /* OPTIONAL PARAMETERS FOR GIPHY */
     /* IN ORDER TO IMPLEMENT, LOOK INTO processCommand FUNCTION */
-    // if (params.length > 1) {
-    //     giphyURL = giphyURL + '&tag=';
-    //     for (var i = 1; i < params.length; i++) {
-    //         giphyURL = giphyURL + params[i] + '+';
-    //     }
-    // }
+    if (params.length > 1) {
+        giphyURL = giphyURL + '&tag=';
+        for (var i = 1; i < params.length; i++) {
+            giphyURL = giphyURL + params[i] + '+';
+        }
+    }
 
     var giphy = null;
     request(giphyURL, function(error, response, body) {
